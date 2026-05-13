@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CapassoWork | Dashboard Docente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page-bg"></div>
+
+<header class="topbar">
+    <div class="brand">
+        <div class="brand-icon">CW</div>
+        <div>
+            <h1>CapassoWork</h1>
+            <p>Dashboard docente</p>
+        </div>
+    </div>
+    <a href="index.html" class="teacher-link">Pagina studenti</a>
+</header>
+
+<main class="main-container">
+
+    <section class="form-card" id="loginBox">
+        <h2>Accesso docente</h2>
+        <p class="muted">Inserisci la password docente per visualizzare le consegne.</p>
+        <div class="input-group">
+            <label for="passwordDocente">Password</label>
+            <input type="password" id="passwordDocente" placeholder="Password docente">
+        </div>
+        <button id="loginBtn">Entra</button>
+        <div class="message error" id="loginError"></div>
+    </section>
+
+    <section class="dashboard-card hidden" id="dashboardBox">
+        <div class="dashboard-header">
+            <div>
+                <span class="badge">Area riservata</span>
+                <h2>Consegne ricevute</h2>
+                <p class="muted">Visualizza, filtra e aggiorna lo stato dei compiti.</p>
+            </div>
+            <button id="refreshBtn" class="secondary-btn">Aggiorna</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span id="totaleConsegne">0</span>
+                <p>Totale consegne</p>
+            </div>
+            <div class="stat-card">
+                <span id="daCorreggere">0</span>
+                <p>Da correggere</p>
+            </div>
+            <div class="stat-card">
+                <span id="corrette">0</span>
+                <p>Corrette</p>
+            </div>
+        </div>
+
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Cerca per studente, classe o verifica...">
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Studente</th>
+                        <th>Classe</th>
+                        <th>Verifica</th>
+                        <th>Stato</th>
+</html>

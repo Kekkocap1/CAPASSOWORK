@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        CapassoWork
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            CW
+        </div>
+
+        <div>
+            <h1>CapassoWork</h1>
+            <p>Consegna digitale verifiche</p>
+        </div>
+
+    </div>
+
+    <a
+        href="dashboard.html"
+        class="teacher-link"
+    >
+        Area docente
+    </a>
+
+</header>
+
+<main class="main-container">
+
+    <!-- BOX SINISTRA -->
+
+    <section class="hero-card">
+
+        <div>
+
+            <span class="badge">
+                Sistema scolastico digitale
+            </span>
+
+            <h2>
+                Invia il tuo compito
+                in modo ordinato e sicuro
+            </h2>
+
+            <p>
+                Inserisci i tuoi dati,
+                incolla il codice svolto
+                oppure allega il file della verifica.
+                Il docente riceverà automaticamente
+                la consegna.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- BOX DESTRA -->
+
+    <section class="form-card">
+
+        <h2>
+            Consegna verifica
+        </h2>
+
+        <form id="taskForm">
+
+            <div class="grid-2">
+
+                <div class="input-group">
+
+                    <label for="nome">
+                        Nome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="cognome">
+                        Cognome
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cognome"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="grid-2">
+
+                <div class="input-group">
+
+                    <label for="classe">
+                        Classe
+                    </label>
+
+                    <input
+                        type="text"
+                        id="classe"
+                        placeholder="Es. 2A INF"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label for="verifica">
+                        Titolo verifica
+                    </label>
+
+                    <input
+                        type="text"
+                        id="verifica"
+                        placeholder="Es. Vettori e Cicli"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- CODICE -->
+
+            <div class="input-group">
+
+                <label for="codice">
+                    Incolla qui il codice
+                </label>
+
+                <textarea
+                    id="codice"
+                    rows="14"
+                    placeholder="#include <stdio.h>
+
+int main() {
+
+    return 0;
+}"
+                ></textarea>
+
+            </div>
+
+            <!-- FILE -->
+
+            <div class="input-group">
+
+                <label for="allegato">
+                    Oppure allega un file
+                </label>
+
+                <input
+                    type="file"
+                    id="allegato"
+                    accept="accept=".c,.cpp,.txt,.pdf,.doc,.docx,.xls,.xlsx,.csv,.jpg,.jpeg,.png""
+                >
+
+                <small>
+                    Formati accettati:
+C, C++, TXT, PDF,
+Word, Excel, CSV, JPG, PNG
+                </small>
+
+            </div>
+
+            <!-- PULSANTE -->
+
+            <button type="submit">
+
+                CONSEGNA COMPITO
+
+            </button>
+
+        </form>
+
+        <!-- MESSAGGI -->
+
+        <div
+            class="message success"
+            id="successMessage"
+        >
+
+            ✅ Compito consegnato correttamente
+
+        </div>
+
+        <div
+            class="message error"
+            id="errorMessage"
+        ></div>
+
+    </section>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
