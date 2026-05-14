@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxP6IKlC8uh2M5Lp1X1eSbYOp26mstlzJFl9I01Ie6-ob_jaaSPW2gaMh9fYm7Wr3Ro/exec";
+const SCRIPT_URL = "IL_TUO_LINK_GOOGLE_APPS_SCRIPT";
 
 const form = document.getElementById("taskForm");
 
@@ -7,6 +7,12 @@ const successMessage =
 
 const errorMessage =
     document.getElementById("errorMessage");
+
+const submitBtn =
+    document.getElementById("submitBtn");
+
+const btnText =
+    document.getElementById("btnText");
 
 form.addEventListener(
     "submit",
@@ -43,16 +49,29 @@ form.addEventListener(
         return;
     }
 
+    submitBtn.disabled = true;
+
+    submitBtn.classList.add("loading");
+
+    btnText.textContent =
+        "INVIO IN CORSO...";
+
     try {
 
         let fileData = null;
 
         if(allegato) {
 
+            btnText.textContent =
+                "CARICAMENTO FILE...";
+
             fileData =
                 await fileToBase64(allegato);
 
         }
+
+        btnText.textContent =
+            "GENERAZIONE DOCUMENTO...";
 
         const payload = {
 
@@ -72,6 +91,9 @@ form.addEventListener(
 
         };
 
+        btnText.textContent =
+            "INVIO AL DOCENTE...";
+
         const response = await fetch(
             SCRIPT_URL,
             {
@@ -85,8 +107,14 @@ form.addEventListener(
 
         if(result.success) {
 
+            successMessage.innerHTML =
+                "✅ Compito consegnato correttamente!";
+
             successMessage.style.display =
                 "block";
+
+            btnText.textContent =
+                "CONSEGNA COMPLETATA";
 
             form.reset();
 
@@ -102,10 +130,25 @@ form.addEventListener(
     } catch(error) {
 
         showError(
-            "Errore di collegamento con Google Apps Script."
+            "Errore di collegamento."
         );
 
         console.error(error);
+
+    } finally {
+
+        setTimeout(() => {
+
+            submitBtn.disabled = false;
+
+            submitBtn.classList.remove(
+                "loading"
+            );
+
+            btnText.textContent =
+                "CONSEGNA COMPITO";
+
+        }, 1500);
 
     }
 

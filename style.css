@@ -304,3 +304,54 @@ pre {
         padding: 24px;
     }
 }
+#submitBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    background: #1d4ed8;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#submitBtn:hover {
+    background: #1e40af;
+}
+
+#submitBtn.loading {
+    opacity: 0.85;
+    cursor: wait;
+}
+
+.btn-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.4);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    display: none;
+    animation: spin 0.8s linear infinite;
+}
+
+#submitBtn.loading .btn-spinner {
+    display: inline-block;
+}
+
+@keyframes spin {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
