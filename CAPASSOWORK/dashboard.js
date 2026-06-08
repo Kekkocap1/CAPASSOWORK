@@ -1,5 +1,4 @@
 import { db, auth, secondaryAuth } from "./firebase.js";
-
 import {
   collection,
   onSnapshot,
@@ -1981,7 +1980,7 @@ async function analizzaConsegnaAI(id) {
             aiBtn.textContent = "⏳ Analisi...";
         }
 
-        const response = await fetch("https://capassowork.netlify.app/.netlify/functions/correggi-ai", {
+        const response = await fetch("/.netlify/functions/correggi-ai", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
