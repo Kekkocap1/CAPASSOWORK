@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        CapassoWork | Archivio alunno
+    </title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="student-page">
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            CW
+        </div>
+
+        <div>
+
+            <h1>
+                CapassoWork
+            </h1>
+
+            <p>
+                Archivio alunno
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="student-top-actions">
+
+    <button id="themeToggle" class="theme-toggle" type="button">
+        <span class="theme-label-light">LIGHT</span>
+        <span class="toggle-track">
+            <span class="toggle-dot"></span>
+        </span>
+        <span class="theme-label-dev">DEV</span>
+    </button>
+
+    <a href="index.html" class="teacher-link">
+        Torna alla consegna
+    </a>
+
+</div>
+
+</header>
+
+<main class="main-container">
+
+    <!-- LOGIN -->
+
+    <section
+        class="form-card"
+        id="studentLoginBox"
+    >
+
+        <h2>
+            Accesso alunno
+        </h2>
+
+        <p>
+            Inserisci le credenziali
+            fornite dal docente.
+        </p>
+
+        <div class="input-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="studentLoginUsername"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="studentLoginPassword"
+            >
+
+        </div>
+
+        <button id="studentLoginBtn">
+
+            Entra nel mio archivio
+
+        </button>
+
+        <div
+            class="message error"
+            id="studentLoginError"
+        ></div>
+
+    </section>
+
+    <!-- HOME ALUNNO -->
+
+    <section
+        class="dashboard-card hidden"
+        id="studentHomeBox"
+    >
+
+        <h2 id="studentWelcome">
+            Archivio alunno
+        </h2>
+
+        <p id="studentInfo"></p>
+
+        <div id="studentSummary" class="student-summary">
+            Media voti: N/A
+        </div>
+
+        <button
+            onclick="logoutAlunno()"
+            class="danger-btn"
+        >
+
+            Esci
+
+        </button>
+
+        <!-- GRAFICO VOTI -->
+
+        <div
+            class="student-chart-card"
+            id="studentChartCard"
+        >
+
+            <h3>
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 3v18h18"/><path d="M16 13l-4 4-2-2-4 4"/></svg> Andamento voti
+            </h3>
+
+            <p>
+                Qui puoi monitorare
+                l'andamento delle
+                verifiche corrette.
+            </p>
+
+            <canvas id="graficoVoti"></canvas>
+
+        </div>
+
+        <!-- ARCHIVIO CONSEGNE -->
+
+        <div id="studentArchive">
+
+            <div class="empty-box">
+
+                Accesso effettuato.
+
+                Nel prossimo step
+                mostreremo qui
+                le tue consegne.
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script
+    type="module"
+    src="./alunno.js"
+></script>
+
+</body>
+
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>CapassoWork | Area docente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="teacher-page">
+
+<main class="teacher-layout premium-dashboard">
+
+    <aside class="teacher-sidebar premium-sidebar">
+
+        <div class="sidebar-logo premium-logo">
+
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 12l-10 6L2 12l10-6 10 6z"/></svg>
+            </div>
+
+            <div>
+                <h2>CAPASSOWORK</h2>
+                <p>AREA DOCENTE</p>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu premium-menu">
+
+            <button
+                class="side-link active"
+                onclick="mostraSezioneDashboard('dashboard')"
+            >
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 11l9-7 9 7"/><path d="M5 10v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> Dashboard
+            </button>
+
+            <button
+                class="side-link"
+                onclick="mostraSezioneDashboard('classi')"
+            >
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Classi
+            </button>
+
+            <button
+                class="side-link"
+                onclick="mostraSezioneDashboard('alunni')"
+            >
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 12l-10 6L2 12l10-6 10 6z"/></svg> Alunni
+            </button>
+
+            <a href="index.html" class="side-link">
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M7 8h10"/></svg> Pagina studenti
+            </a>
+
+            <button
+                class="side-link"
+                onclick="logoutDocente()"
+            >
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/></svg> Logout
+            </button>
+
+        </nav>
+
+        <div class="sidebar-profile">
+
+            <div class="profile-avatar">
+                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+
+            <div>
+                <strong>Prof. Capasso</strong>
+                <p><svg viewBox="0 0 8 8" width="10" height="10" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="4" r="4" fill="#10B981"/></svg> Online</p>
+            </div>
+
+        </div>
+
+    </aside>
+
+    <section class="teacher-content premium-content">
+
+        <!-- LOGIN -->
+
+        <section class="form-card" id="loginBox">
+
+            <h2>Accesso docente</h2>
+
+            <p>
+                Inserisci la password docente
+                per accedere alla dashboard.
+            </p>
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="passwordDocente"
+                    placeholder="Inserisci la password docente"
+                >
+
+            </div>
+
+            <button id="loginBtn">
+                Accedi alla dashboard
+            </button>
+
+            <div id="otpBox" class="hidden"></div>
+
+            <div class="message error" id="loginError"></div>
+
+        </section>
+
+        <!-- DASHBOARD -->
+
+        <section
+            class="dashboard-card hidden premium-main-card"
+            id="dashboardBox"
+        >
+
+            <!-- HEADER -->
+
+            <div class="premium-header">
+
+                <div>
+                    <h1>Bentornato, Prof. Capasso!</h1>
+                    <p>Controlla rapidamente attività, consegne e classi.</p>
+                </div>
+
+                <div class="premium-date-box">
+                    <span id="currentDate"><svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4"/></svg> Caricamento...</span>
+                    <span id="currentTime"><svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> --:--</span>
+                </div>
+
+                <div class="anno-selector">
+                    <label for="schoolYearSelect">Anno scolastico</label>
+                    <select id="schoolYearSelect">
+                        <option value="2025-26">2025-26</option>
+                        <option value="2026-27">2026-27</option>
+                    </select>
+                    <p id="yearModeText" class="year-mode-text">Caricamento anno...</p>
+                </div>
+				<button id="themeToggle" class="theme-toggle" type="button">
+    <span class="theme-label-light">LIGHT</span>
+    <span class="toggle-track">
+        <span class="toggle-dot"></span>
+    </span>
+    <span class="theme-label-dev">DEV</span>
+</button>
+
+            </div>
+
+            <!-- STATISTICHE -->
+
+            <div class="teacher-stats premium-stats">
+
+                <div class="teacher-stat-card stat-blue premium-stat-card">
+
+                    <div class="stat-icon"><svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+
+                    <div>
+
+                        <p>CLASSI ATTIVE</p>
+
+                        <span id="statClassi">0</span>
+
+                        <small>
+                            Classi registrate
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="teacher-stat-card stat-green premium-stat-card">
+
+                    <div class="stat-icon"><svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M7 8h10"/></svg></div>
+
+                    <div>
+
+                        <p>CONSEGNE TOTALI</p>
+
+                        <span id="statConsegne">0</span>
+
+                        <small>
+                            Consegne ricevute
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="teacher-stat-card stat-purple premium-stat-card">
+
+                    <div class="stat-icon"><svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 12l-10 6L2 12l10-6 10 6z"/></svg></div>
+
+                    <div>
+
+                        <p>ALUNNI</p>
+
+                        <span id="statAlunni">0</span>
+
+                        <small>
+                            Alunni registrati
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- STATO CONSEGNE -->
+
+            <div class="premium-delivery-panel delivery-control">
+
+                <div>
+
+                    <strong id="deliveryStatusText">
+                        Stato consegne:
+                        caricamento...
+                    </strong>
+
+                    <p>
+                        Gestisci l’apertura
+                        delle consegne degli studenti.
+                    </p>
+
+                </div>
+
+                <button id="toggleDeliveryBtn">
+                    Cambia stato consegne
+                </button>
+
+            </div>
+
+            <!-- =========================
+                 DASHBOARD HOME
+            ========================= -->
+
+            <div id="sezioneDashboard">
+
+                <div class="section-heading-premium">
+
+                    <div>
+
+                        <h2><svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 11l9-7 9 7"/><path d="M5 10v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> Dashboard live</h2>
+
+                        <p>
+                            Controlla rapidamente
+                            attività, notifiche
+                            e stato consegne.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- OVERVIEW -->
+
+                <div class="dashboard-overview-grid">
+
+                    <!-- ULTIME CONSEGNE -->
+
+                    <div
+                        class="overview-card overview-blue"
+                        onclick="apriOverlayUltimeConsegne()"
+                    >
+
+                        <div class="overview-top">
+
+                            <span>
+                                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6"/><path d="M16 6l-4 4-4-4"/></svg>
+                            </span>
+
+                            <strong>
+                                Ultime consegne
+                            </strong>
+
+                        </div>
+
+                        <h3 id="overviewUltimaConsegna">
+                            --
+                        </h3>
+
+                        <p id="overviewUltimaInfo">
+                            Nessuna consegna recente.
+                        </p>
+
+                    </div>
+
+                    <!-- NOTIFICHE -->
+
+                    <div
+                        class="overview-card overview-purple"
+                        onclick="apriOverlayNotifiche()"
+                    >
+
+                        <div class="overview-top">
+
+                            <span>
+                                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0 1 18.6 14.6V11a6 6 0 0 0-12 0v3.6c0 .538-.214 1.055-.595 1.395L4 17h11z"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                            </span>
+
+                            <strong>
+                                Notifiche
+                            </strong>
+
+                        </div>
+
+                        <h3 id="overviewNotifiche">
+                            0
+                        </h3>
+
+                        <p>
+                            Consegne non ancora lette.
+                        </p>
+
+                    </div>
+
+                    <!-- CARTELLE -->
+
+                    <div
+                        class="overview-card overview-green"
+                        onclick="apriOverlayCartelle()"
+                    >
+
+                        <div class="overview-top">
+
+                            <span>
+                                <svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2z"/></svg>
+                            </span>
+
+                            <strong>
+                                Cartelle attive
+                            </strong>
+
+                        </div>
+
+                        <h3 id="overviewCartelle">
+                            0
+                        </h3>
+
+                        <p>
+                            Cartelle create nelle classi.
+                        </p>
+
+                    </div>
+
+                    <!-- ATTIVITÀ -->
+
+                    <div
+                        class="overview-card overview-orange"
+                        onclick="apriOverlayAttivita()"
+                    >
+
+                        <div class="overview-top">
+
+                            <span>⚡</span>
+
+                            <strong>
+                                Attività recenti
+                            </strong>
+
+                        </div>
+
+                        <h3 id="overviewAttivita">
+                            --
+                        </h3>
+
+                        <p id="overviewAttivitaInfo">
+                            In attesa di attività.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+                 CLASSI
+            ========================= -->
+
+            <div id="sezioneClassi" class="hidden">
+
+                <div class="section-heading-premium">
+
+                    <div>
+
+                        <h2><svg viewBox="0 0 24 24" class="ui-icon" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 19.5A2.5 2.5 0 0 1 5.5 17H21"/><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H21v14"/></svg> Le tue classi</h2>
+
+                        <p>
+                            Seleziona una classe
+                            per visualizzare
+                            consegne, cartelle
+                            e attività.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="classiContainer"></div>
+
+                <div id="dettaglioClasse"></div>
+
+            </div>
+
+            <!-- =========================
+                 ALUNNI
+            ========================= -->
+
+            <div id="sezioneAlunni" class="hidden">
+
+                <div class="student-manager premium-student-manager">
+
+                    <h3>Gestione alunni</h3>
+
+                    <p>
+                        Crea gli account alunno
+                        direttamente da questa sezione.
+                    </p>
+
+                    <div class="grid-2">
+
+                        <div class="input-group">
+
+                            <label>Nome</label>
+
+                            <input
+                                type="text"
+                                id="studentNome"
+                            >
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>Cognome</label>
+
+                            <input
+                                type="text"
+                                id="studentCognome"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="grid-2">
+
+                        <div class="input-group">
+
+                            <label>Classe</label>
+
+                            <input
+                                type="text"
+                                id="studentClasse"
+                                placeholder="Es. 3A INF"
+                            >
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>Username</label>
+
+                            <input
+                                type="text"
+                                id="studentUsername"
+                                placeholder="mario.rossi"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <div class="grid-2">
+
+                        <div class="input-group">
+
+                            <label>Password</label>
+
+                            <input
+                                type="text"
+                                id="studentPassword"
+                                placeholder="MR2026"
+                            >
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>&nbsp;</label>
+
+                            <button id="createStudentBtn">
+                                Crea alunno
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="message success"
+                        id="studentSuccess"
+                    ></div>
+
+                    <div
+                        class="message error"
+                        id="studentError"
+                    ></div>
+
+                    <div
+                        id="studentList"
+                        class="student-list"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+<!-- OVERLAY DASHBOARD -->
+
+<div
+    id="dashboardOverlay"
+    class="dashboard-overlay hidden"
+>
+
+    <div class="dashboard-overlay-box">
+
+        <div class="dashboard-overlay-header">
+
+            <h2 id="overlayTitle">
+                Dashboard
+            </h2>
+
+            <button
+                class="close-overlay-btn"
+                onclick="chiudiDashboardOverlay()"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div id="overlayContent"></div>
+
+    </div>
+
+</div>
+
+<script type="module" src="./dashboard.js"></script>
+
+</body>
+</html>
