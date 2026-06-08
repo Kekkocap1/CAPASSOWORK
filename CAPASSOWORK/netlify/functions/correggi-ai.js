@@ -1,19 +1,35 @@
+const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Content-Type": "application/json"
+};
+
 exports.handler = async function(event) {
+    if (event.httpMethod === "OPTIONS") {
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({ ok: true })
+        };
+    }
+
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
+            headers,
             body: JSON.stringify({ error: "Metodo non consentito" })
         };
     }
 
     try {
         const body = JSON.parse(event.body || "{}");
-
         const codice = body.codice || "";
 
         if (!codice.trim()) {
             return {
                 statusCode: 400,
+                headers,
                 body: JSON.stringify({ error: "Nessun codice da analizzare." })
             };
         }
@@ -21,7 +37,7 @@ exports.handler = async function(event) {
         const prompt = `
 Sei un assistente per un docente di informatica.
 
-Analizza il codice consegnato da uno studente e aiuta il docente nella correzione.
+Analizza il codice consegnato da uno studente.
 
 DATI CONSEGNA:
 Studente: ${body.cognome || ""} ${body.nome || ""}
@@ -31,8 +47,7 @@ Verifica: ${body.verifica || ""}
 CODICE STUDENTE:
 ${codice}
 
-Rispondi SOLO con JSON valido, senza markdown, con questa struttura:
-
+Rispondi SOLO con JSON valido, senza markdown:
 {
   "puntiPositivi": ["..."],
   "errori": ["..."],
@@ -40,13 +55,6 @@ Rispondi SOLO con JSON valido, senza markdown, con questa struttura:
   "commentoDocente": "...",
   "codiceCorretto": "..."
 }
-
-Regole:
-- Il voto è solo un suggerimento.
-- Non essere troppo severo.
-- Il commento deve essere breve, chiaro e adatto a uno studente.
-- Se il codice è molto incompleto, suggerisci un voto basso ma motivato.
-- Nel codiceCorretto inserisci una versione corretta o migliorata del codice.
 `;
 
         const response = await fetch("https://api.openai.com/v1/responses", {
@@ -66,6 +74,7 @@ Regole:
         if (!response.ok) {
             return {
                 statusCode: response.status,
+                headers,
                 body: JSON.stringify({
                     error: data.error?.message || "Errore OpenAI"
                 })
@@ -84,6 +93,7 @@ Regole:
         } catch {
             return {
                 statusCode: 500,
+                headers,
                 body: JSON.stringify({
                     error: "Risposta AI non valida.",
                     raw: testo
@@ -93,12 +103,14 @@ Regole:
 
         return {
             statusCode: 200,
+            headers,
             body: JSON.stringify(risultato)
         };
 
     } catch (error) {
         return {
             statusCode: 500,
+            headers,
             body: JSON.stringify({ error: error.message })
         };
     }
