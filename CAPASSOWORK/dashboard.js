@@ -1981,7 +1981,7 @@ async function analizzaConsegnaAI(id) {
             aiBtn.textContent = "⏳ Analisi...";
         }
 
-       const response = await fetch("https://capassowork.netlify.app/.netlify/functions/correggi-ai", {
+		fetch("https://capassowork.netlify.app/.netlify/functions/correggi-ai", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
