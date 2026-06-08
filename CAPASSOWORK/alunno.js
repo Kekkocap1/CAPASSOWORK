@@ -40,28 +40,7 @@ loginBtn.addEventListener("click", async () => {
 
     const username = usernameInput.value.trim().toLowerCase();
     const password = passwordInput.value.trim();
-
-    if (!user) {
-    localStorage.removeItem("capassoStudent");
-
-    if (usernameInput) usernameInput.value = "";
-    if (passwordInput) passwordInput.value = "";
-
-    if (studentArchive) studentArchive.innerHTML = "";
-    if (studentSummary) studentSummary.innerHTML = "";
-
-    if (graficoVoti) {
-        graficoVoti.destroy();
-        graficoVoti = null;
-    }
-
-    consegneAlunno = [];
-
-    loginBox.classList.remove("hidden");
-    homeBox.classList.add("hidden");
-
-    return;
-}
+    
 
     try {
         const emailTecnica = usernameToEmail(username);
