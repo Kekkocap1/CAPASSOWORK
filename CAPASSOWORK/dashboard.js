@@ -1997,11 +1997,17 @@ async function analizzaConsegnaAI(id) {
             })
         });
 
-        const risultato = await response.json();
+       const text = await response.text();
 
-        if (!response.ok) {
-            throw new Error(risultato.error || "Errore analisi AI");
-        }
+if (!text) {
+    throw new Error("Risposta vuota dalla funzione AI");
+}
+
+const risultato = JSON.parse(text);
+
+if (!response.ok) {
+    throw new Error(risultato.error || "Errore analisi AI");
+}
 
         if (risultato.suggerimentoVoto) {
             document.getElementById(`voto-${id}`).value =
