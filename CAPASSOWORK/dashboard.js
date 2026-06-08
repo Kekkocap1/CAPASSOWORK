@@ -2002,10 +2002,15 @@ async function analizzaConsegnaAI(id) {
             throw new Error("Risposta vuota dalla funzione AI");
         }
 
-        const risultato = JSON.parse(text);
+        const text = await response.text();
 
-        if (!response.ok) {
-            throw new Error(risultato.error || "Errore analisi AI");
+console.log("RISPOSTA AI RAW:", text);
+
+if (!text) {
+    throw new Error("Risposta vuota dalla funzione AI");
+}
+
+const risultato = JSON.parse(text);
         }
 
         document.getElementById(`voto-${id}`).value = risultato.suggerimentoVoto || "";
