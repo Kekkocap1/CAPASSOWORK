@@ -1981,7 +1981,7 @@ async function analizzaConsegnaAI(id) {
             aiBtn.textContent = "⏳ Analisi...";
         }
 
-		fetch("https://capassowork.netlify.app/.netlify/functions/correggi-ai", {
+        const response = await fetch("https://capassowork.netlify.app/.netlify/functions/correggi-ai", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -1994,15 +1994,18 @@ async function analizzaConsegnaAI(id) {
                 codice: consegna.codice || ""
             })
         });
+
         const text = await response.text();
+        console.log("RISPOSTA AI RAW:", text);
 
-console.log("RISPOSTA AI RAW:", text);
+        if (!text) {
+            throw new Error("Risposta vuota dalla funzione AI");
+        }
 
-if (!text) {
-    throw new Error("Risposta vuota dalla funzione AI");
-}
+        const risultato = JSON.parse(text);
 
-const risultato = JSON.parse(text);
+        if (!response.ok) {
+            throw new Error(risultato.error || "Errore analisi AI");
         }
 
         document.getElementById(`voto-${id}`).value = risultato.suggerimentoVoto || "";
@@ -2015,8 +2018,13 @@ const risultato = JSON.parse(text);
 
     } catch (error) {
         console.error("ERRORE AI:", error);
-        if (aiStatus) aiStatus.textContent = "Errore: " + error.message;
+
+        if (aiStatus) {
+            aiStatus.textContent = "Errore: " + error.message;
+        }
+
         alert("Errore AI: " + error.message);
+
     } finally {
         if (aiBtn) {
             aiBtn.disabled = false;
