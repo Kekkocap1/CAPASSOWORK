@@ -1994,14 +1994,6 @@ async function analizzaConsegnaAI(id) {
                 codice: consegna.codice || ""
             })
         });
-
-        const text = await response.text();
-        console.log("RISPOSTA AI RAW:", text);
-
-        if (!text) {
-            throw new Error("Risposta vuota dalla funzione AI");
-        }
-
         const text = await response.text();
 
 console.log("RISPOSTA AI RAW:", text);
