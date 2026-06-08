@@ -1974,9 +1974,7 @@ async function analizzaConsegnaAI(id) {
     const aiBtn = document.querySelector(".ai-btn");
 
     try {
-        if (aiStatus) {
-            aiStatus.textContent = "Analisi in corso...";
-        }
+        if (aiStatus) aiStatus.textContent = "Analisi in corso...";
 
         if (aiBtn) {
             aiBtn.disabled = true;
@@ -1997,47 +1995,31 @@ async function analizzaConsegnaAI(id) {
             })
         });
 
-       const text = await response.text();
+        const text = await response.text();
+        console.log("RISPOSTA AI RAW:", text);
 
-if (!text) {
-    throw new Error("Risposta vuota dalla funzione AI");
-}
-
-const risultato = JSON.parse(text);
-
-if (!response.ok) {
-    throw new Error(risultato.error || "Errore analisi AI");
-}
-
-        if (risultato.suggerimentoVoto) {
-            document.getElementById(`voto-${id}`).value =
-                risultato.suggerimentoVoto;
+        if (!text) {
+            throw new Error("Risposta vuota dalla funzione AI");
         }
 
-        if (risultato.commentoDocente) {
-            document.getElementById(`commento-${id}`).value =
-                risultato.commentoDocente;
+        const risultato = JSON.parse(text);
+
+        if (!response.ok) {
+            throw new Error(risultato.error || "Errore analisi AI");
         }
 
-        if (risultato.codiceCorretto) {
-            document.getElementById(`codiceCorretto-${id}`).value =
-                risultato.codiceCorretto;
-        }
+        document.getElementById(`voto-${id}`).value = risultato.suggerimentoVoto || "";
+        document.getElementById(`commento-${id}`).value = risultato.commentoDocente || "";
+        document.getElementById(`codiceCorretto-${id}`).value = risultato.codiceCorretto || "";
 
         if (aiStatus) {
-            aiStatus.textContent =
-                "Analisi completata. Controlla e salva la correzione.";
+            aiStatus.textContent = "Analisi completata. Controlla e salva.";
         }
 
     } catch (error) {
-        console.error(error);
-
-        if (aiStatus) {
-            aiStatus.textContent = "Errore: " + error.message;
-        }
-
+        console.error("ERRORE AI:", error);
+        if (aiStatus) aiStatus.textContent = "Errore: " + error.message;
         alert("Errore AI: " + error.message);
-
     } finally {
         if (aiBtn) {
             aiBtn.disabled = false;
@@ -2045,7 +2027,6 @@ if (!response.ok) {
         }
     }
 }
-
 /* =========================
    WINDOW
    ========================= */
